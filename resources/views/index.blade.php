@@ -77,11 +77,11 @@ time, mark, audio, video {
         <td>{{$todo->created_at}}</td>
         <td><input type="text" value="{{$todo->content}}">
           </td>
-        <form action="/todos/update" method="post">
+        <form action="{{route('todo.update',['id' =>$todo->id,'content'=>$todo->content])}}" method="post">
           @csrf
           <td><input class="btn update" type="submit" value="更新"></td>
         </form>
-        <form action="/todos/delete" method="post">
+        <form action="{{route('todo.destroy', ['id'=>$todo->id])}}" method="post">
           @csrf
           <td><input class="btn delete" type="submit" value="削除"></td>
         </form>
