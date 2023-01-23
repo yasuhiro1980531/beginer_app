@@ -29,13 +29,26 @@ time, mark, audio, video {
   background:transparent;
 }
 
-  .back {
+input {
+  border:1px solid #D3D3D3;
+  display:block;
+}
+
+input:focus {
+  outline:none;
+}
+
+  .container {
     background-color:#2d197c;
     height:100vh;
     width:100vw;
     position:relative;
   }
 
+  .flex__item {
+    display:flex;
+    justify-content:space-between;
+  }
   .listarea {
     background-color:#fff;
     width:50vw;
@@ -50,24 +63,84 @@ time, mark, audio, video {
     font-size:30px;
   }
 
-  .enter{
-    width:70%
-    
+  .addarea {
+    height:50px;
+    margin-bottom:20px;
   }
+
+  .enter{
+    width:80%;
+    border-radius:10px;
+    font-size:16px;
+  }
+  table {
+    width:100%;
+    display:block;
+    margin:0 auto;
+  }
+
+  tr {
+    height:40px;
+  }
+
+  th td {
+    text-align:center;
+  }
+  .btn {
+    background-color:#fff;
+    padding:10px 20px;
+    border-radius:10px;
+  }
+
+  .add {
+    border:2px solid #dc70fa;
+    color:#dc70fa;
+    transition:0.4s;
+    font-weight:bold;
+  }
+
+  .add:hover{
+    color:#FFF;
+    background-color:#dc70fa;
+  }
+
+  .update {
+    border:2px solid #fa9770;
+    color:#fa9770;
+    transition:0.4s;
+    font-weight:bold;
+  }
+
+  .update:hover{
+    color:#FFF;
+    background-color:#fa9770;
+  }
+
+  .delete {
+    border:2px solid #71fadc;
+    color:#71fadc;
+    transition:0.4s;
+    font-weight:bold;
+  }
+
+  .delete:hover{
+    color:#FFF;
+    background-color:#71fadc;
+  }
+
 </style>
-<div class="back">
+<div class="container">
   <div class="listarea">
     <h2>Todo List</h2>
     <div class="todo">
-      <form action="/todos/create" method="post">
-        @csrf
         @error('content')
         <p>{{$message}}</p>
         @enderror
+    <form action="/todos/create" method="post" class="addarea flex__item">
+        @csrf
       <input class="enter" type="text" method="post" name="content">
       <input class="btn add"type="submit" value="追加">
       </form>
-      <div class="logarea">
       <table>
         <tr>
           <th>作成日</th>
@@ -80,7 +153,7 @@ time, mark, audio, video {
         <td>{{$todo->created_at}}</td>
         <form action="{{route('todo.update',['id' =>$todo->id,'content'=>$todo->content])}}" method="post">
           @csrf
-          <td><input type="text" name="content" value="{{$todo->content}}">
+          <td><input type="text" name="content" value="{{$todo->content}}" class="content__log">
           </td>
           <td><input class="btn update" type="submit" value="更新"></td>
         </form>
@@ -91,7 +164,6 @@ time, mark, audio, video {
         </tr>
         @endforeach
       </table>
-      </div>
     </div>
   </div>
 </div>
