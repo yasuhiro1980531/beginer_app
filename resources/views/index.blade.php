@@ -59,8 +59,11 @@ time, mark, audio, video {
   <div class="listarea">
     <h2>Todo List</h2>
     <div class="todo">
+      <form action="/todos/create" method="post">
+        @csrf
       <input class="enter" type="text" method="post" name="content">
-      <input class="btn add"type="submit" value="追加" action="/todos/create" method="post">
+      <input class="btn add"type="submit" value="追加">
+      </form>
       <div class="logarea">
       <table>
         <tr>
@@ -74,8 +77,14 @@ time, mark, audio, video {
         <td>{{$todo->created_at}}</td>
         <td><input type="text" value="{{$todo->content}}">
           </td>
-        <td><input class="btn update" type="submit" value="更新"></td>
-        <td><input class="btn delete" type="submit" value="削除"></td>
+        <form action="/todo/update" method="post">
+          @csrf
+          <td><input class="btn update" type="submit" value="更新"></td>
+        </form>
+        <form action="/todos/delete" method="post">
+          @csrf
+          <td><input class="btn delete" type="submit" value="削除"></td>
+        </form>
         </tr>
         @endforeach
       </table>
