@@ -61,6 +61,9 @@ time, mark, audio, video {
     <div class="todo">
       <form action="/todos/create" method="post">
         @csrf
+        @error('content')
+        <p>{{$message}}</p>
+        @enderror
       <input class="enter" type="text" method="post" name="content">
       <input class="btn add"type="submit" value="追加">
       </form>
@@ -75,10 +78,10 @@ time, mark, audio, video {
         @foreach ($todos as $todo)
         <tr>
         <td>{{$todo->created_at}}</td>
-        <td><input type="text" value="{{$todo->content}}">
-          </td>
         <form action="{{route('todo.update',['id' =>$todo->id,'content'=>$todo->content])}}" method="post">
           @csrf
+          <td><input type="text" name="content" value="{{$todo->content}}">
+          </td>
           <td><input class="btn update" type="submit" value="更新"></td>
         </form>
         <form action="{{route('todo.destroy', ['id'=>$todo->id])}}" method="post">
