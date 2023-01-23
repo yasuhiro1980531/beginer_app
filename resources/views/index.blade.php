@@ -77,7 +77,7 @@ time, mark, audio, video {
         <td>{{$todo->created_at}}</td>
         <td><input type="text" value="{{$todo->content}}">
           </td>
-        <form action="/todo/update" method="post">
+        <form action="/todos/update" method="post">
           @csrf
           <td><input class="btn update" type="submit" value="更新"></td>
         </form>
