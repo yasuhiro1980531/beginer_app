@@ -49,6 +49,7 @@ input:focus {
     display:flex;
     justify-content:space-between;
   }
+
   .listarea {
     background-color:#fff;
     width:50vw;
@@ -75,17 +76,41 @@ input:focus {
   }
   table {
     width:100%;
-    display:block;
-    margin:0 auto;
+    border-collapse:collapse;
   }
 
   tr {
     height:40px;
   }
 
-  th td {
+  .th1{
+    text-align:center;
+    width: 150px;
+  }
+
+  .th2{
+    text-align:center;
+    width: 60px;
+  }
+
+  .th3 {
+    text-align:center;
+    width: 250px;
+  }
+  td {
     text-align:center;
   }
+
+.content__log {
+  display:block;
+  margin:0 auto;
+  align-items:center;
+  width:90%;
+  border-radius:5px;
+  padding:10px;
+  font-size:14px;
+}
+
   .btn {
     background-color:#fff;
     padding:10px 20px;
@@ -105,6 +130,8 @@ input:focus {
   }
 
   .update {
+    display:block;
+    margin:0 auto;
     border:2px solid #fa9770;
     color:#fa9770;
     transition:0.4s;
@@ -117,6 +144,8 @@ input:focus {
   }
 
   .delete {
+    display:block;
+    margin:0 auto;
     border:2px solid #71fadc;
     color:#71fadc;
     transition:0.4s;
@@ -143,10 +172,10 @@ input:focus {
       </form>
       <table>
         <tr>
-          <th>作成日</th>
-          <th>タスク名</th>
-          <th>更新</th>
-          <th>削除</th>
+          <th class="th1">作成日</th>
+          <th class="th3">タスク名</th>
+          <th class="th2">更新</th>
+          <th class="th2">削除</th>
         </tr>
         @foreach ($todos as $todo)
         <tr>
