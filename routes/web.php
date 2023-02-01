@@ -13,7 +13,18 @@ use App\Http\Controllers\TodoController;
 |
 */
 
-Route::get('/', [TodoController::class,'index']);
+Route::get('/', function () {
+    return view('auth.register');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+Route::get('/home', [TodoController::class,'index']);
 Route::post('/todos/create',[TodoController::class,'store']);
 Route::post('/todos/delete',[TodoController::class,'destroy'])->name('todo.destroy');
 Route::post('/todos/update',[TodoController::class,'update'])->name('todo.update');
+
