@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Auth;
 class TodoController extends Controller
 {
     public function index() {
+        $user = Auth::user();
         $todos = Todo::all();
-        return view('index',['todos' => $todos]);
+        $param =['todos' => $todos, 'user' =>$user];
+        return view('index',$param);
     }
 
     public function store(TodoRequest $request){

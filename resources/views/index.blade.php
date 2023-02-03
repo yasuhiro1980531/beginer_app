@@ -157,10 +157,46 @@ input:focus {
     background-color:#71fadc;
   }
 
+  .login_area {
+    margin-bottom:20px;
+  }
+
+  .logout {
+    color:red;
+    font-weight:bold;
+    border:2px solid red;
+    translate:0.4s;
+  }
+
+  .logout:hover{
+    color:white;
+    background-color:red;
+  }
+
+  .login-name {
+    margin-right:30px;
+    display:inline-block;
+    margin-top:10px;
+  }
+
 </style>
 <div class="container">
   <div class="listarea">
-    <h2>Todo List</h2>
+    <div class="todoheader flex__item">
+      <h2>Todo List</h2>
+      <div class="login_area flex__item">
+        @if (Auth::check())
+        <p class="login-name">「{{$user->name}}」でログイン中</p>
+        <form action="/logout" method="post">
+          @csrf
+          <input type="submit" value="ログアウト" class="btn logout">
+        </form>
+        @else
+        <p>ログインしてください。（<a href="/login">ログイン</a>｜
+  <a href="/register">登録</a>）</p>
+        @endif
+      </div>
+    </div>
     <div class="todo">
         @error('content')
         <p>{{$message}}</p>
