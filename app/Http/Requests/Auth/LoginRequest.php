@@ -34,6 +34,13 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return[
+            'email.required' => 'メールアドレスを入力してください。'
+        ];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *
