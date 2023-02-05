@@ -70,10 +70,15 @@ input:focus {
   }
 
   .enter{
-    width:80%;
+    width:70%;
     border-radius:10px;
     font-size:16px;
   }
+
+  .tagSelect{
+    border:1px solid #D3D3D3;
+  }
+
   table {
     width:100%;
     border-collapse:collapse;
@@ -204,12 +209,20 @@ input:focus {
     <form action="/todos/create" method="post" class="addarea flex__item">
         @csrf
       <input class="enter" type="text" method="post" name="content">
+      <select class="btn tagSelect" name="tag_id">
+        <option value ="1">家事</option>
+        <option value ="2">勉強</option>
+        <option value ="3">運動</option>
+        <option value ="4">食事</option>
+        <option value ="5">移動</option>
+      </select>
       <input class="btn add"type="submit" value="追加">
       </form>
       <table>
         <tr>
           <th class="th1">作成日</th>
           <th class="th3">タスク名</th>
+          <th class="th2">タグ</th>
           <th class="th2">更新</th>
           <th class="th2">削除</th>
         </tr>
@@ -219,6 +232,15 @@ input:focus {
         <form action="{{route('todo.update',['id' =>$todo->id,'content'=>$todo->content])}}" method="post">
           @csrf
           <td><input type="text" name="content" value="{{$todo->content}}" class="content__log">
+          </td>
+          <td>
+            <select class="btn tagSelect" name="tag_id">
+              <option value ="1">家事</option>
+              <option value ="2">勉強</option>
+              <option value ="3">運動</option>
+              <option value ="4">食事</option>
+              <option value ="5">移動</option>
+            </select>
           </td>
           <td><input class="btn update" type="submit" value="更新"></td>
         </form>
