@@ -210,11 +210,9 @@ input:focus {
         @csrf
       <input class="enter" type="text" method="post" name="content">
       <select class="btn tagSelect" name="tag_id">
-        <option value ="1">家事</option>
-        <option value ="2">勉強</option>
-        <option value ="3">運動</option>
-        <option value ="4">食事</option>
-        <option value ="5">移動</option>
+        @foreach($tags as $tag)
+        <option value ="{{ $tag->id }}" @if($tag->id == tag_id) selected @endif>{{$tag->name}}</option>
+        @endforeach
       </select>
       <input class="btn add"type="submit" value="追加">
       </form>
@@ -229,17 +227,15 @@ input:focus {
         @foreach ($todos as $todo)
         <tr>
         <td>{{$todo->created_at}}</td>
-        <form action="{{route('todo.update',['id' =>$todo->id,'content'=>$todo->content])}}" method="post">
+        <form action="{{route('todo.update',['id' =>$todo->id,'content'=>$todo->content, 'tag_id' => 'tag_id' ])}}" method="post">
           @csrf
           <td><input type="text" name="content" value="{{$todo->content}}" class="content__log">
           </td>
           <td>
             <select class="btn tagSelect" name="tag_id">
-              <option value ="1">家事</option>
-              <option value ="2">勉強</option>
-              <option value ="3">運動</option>
-              <option value ="4">食事</option>
-              <option value ="5">移動</option>
+              @foreach ($tags as $tag)
+              <option value ="{{$tag->id}}">{{$tag->name}}</option>
+              @endforeach
             </select>
           </td>
           <td><input class="btn update" type="submit" value="更新"></td>
@@ -249,6 +245,7 @@ input:focus {
           <td><input class="btn delete" type="submit" value="削除"></td>
         </form>
         </tr>
+        
         @endforeach
       </table>
     </div>

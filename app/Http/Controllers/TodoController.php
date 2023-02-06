@@ -15,24 +15,26 @@ class TodoController extends Controller
         $user = Auth::user();
         $todos = $user->todos;
         $tags = Tag::all();
-        $param =['todos' => $todos,'user' =>$user, 'tags' => $tags];
+        $param =
+        [
+          'todos' => $todos,
+          'user' =>$user,
+          'tags' => $tags
+        ];
         return view('index',$param);
     }
 
-    public function store(TodoRequest $request){
-    $new_todo = new Todo;
-    $new_todo->user_id = Auth::id();
-    $new_todo->tag_id = $request->tag_id;
-    $new_todo->content = $request->content;
-    unset($new_todo['_token']);
+    public function store(TodoRequest $request)
+    {
     Todo::create([
-      'content' =>  $new_todo->content,
-      'user_id' => $new_todo->user_id,
-      'tag_id' => $new_todo->tag_id
+      'content' =>  $request->content,
+      'user_id' => Auth::id(),
+      'tag_id' => $request->tag_id
     ]);
     return redirect('/home');
   }
-    public function update(TodoRequest $request) {
+    public function update(TodoRequest $request) 
+    {
       $form = $request->all();
       unset($form['_token']);
       Todo::where('id',$request->id)->update($form);
