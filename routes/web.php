@@ -24,7 +24,9 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/home', [TodoController::class,'index']);
-Route::post('/todos/create',[TodoController::class,'store']);
+Route::post('/todos/create',[TodoController::class,'store'])->name('todo.store');
 Route::post('/todos/delete',[TodoController::class,'destroy'])->name('todo.destroy');
 Route::post('/todos/update',[TodoController::class,'update'])->name('todo.update');
+Route::get('/todo/find', [TodoController::class,'find']);
+Route::get('/todo/search', [TodoController::class,'search'])->name('todo.search');
 

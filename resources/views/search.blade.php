@@ -38,6 +38,10 @@ input:focus {
   outline:none;
 }
 
+a {
+  text-decoration:none;
+}
+
 .container {
   background-color:#2d197c;
   height:100vh;
@@ -58,7 +62,7 @@ input:focus {
   top:50%;
   left:50%;
   transform:translate(-50%,-50%)
-  }
+}
 
 .listarea h2 {
   font-size:30px;
@@ -103,10 +107,6 @@ tr {
   width: 250px;
 }
 
-.th4{
-  width: 80px;
-}
-
 td {
   text-align:center;
 }
@@ -115,8 +115,8 @@ td {
   display:block;
   margin:0 auto;
   align-items:center;
-  width:80%;
-  border-radius:10px;
+  width:90%;
+  border-radius:5px;
   padding:10px;
   font-size:14px;
 }
@@ -164,7 +164,7 @@ td {
 .update:hover{
   color:#FFF;
   background-color:#fa9770;
-}
+  }
 
 .delete {
   display:block;
@@ -202,11 +202,24 @@ td {
   margin-top:10px;
 }
 
+.return {
+  border: 2px solid #6d7170;
+  color: #6d7170;
+  background-color: #fff;
+  font-weight:bold;
+  translate:0.4s;
+}
+
+.return:hover{
+  color:white;
+  background-color:#6d7170;
+}
+
 </style>
 <div class="container">
   <div class="listarea">
     <div class="todoheader flex__item">
-      <h2>Todo List</h2>
+      <h2>タスク検索</h2>
       <div class="login_area flex__item">
         @if (Auth::check())
         <p class="login-name">「{{$user->name}}」でログイン中</p>
@@ -216,20 +229,14 @@ td {
         </form>
         @else
         <p>ログインしてください。（<a href="/login">ログイン</a>｜
-  <a href="/register">登録</a>）</p>
+        <a href="/register">登録</a>）</p>
         @endif
       </div>
     </div>
     <div class="todo">
-    <a href="http://127.0.0.1:8000/todo/find">
-      <input class="btn search" type="submit" value="タスク検索">
-    </a>
-    @error('content')
-    <p>{{$message}}</p>
-    @enderror
-    <form action="{{route('todo.store')}}" method="post" class="addarea flex__item">
-        @csrf
-      <input class="enter" type="text" method="post" name="content">
+    <form action="{{route('todo.search')}}" method="get" class="addarea flex__item">
+        @csrf      
+      <input class="enter" type="search" name="keyword">
       <select class="btn tagSelect" name="tag_id">
         @foreach($tags as $tag)
         <option value ="{{ $tag->id }}" 
@@ -238,13 +245,13 @@ td {
         @endforeach>{{$tag->name}}</option>
         @endforeach
       </select>
-      <input class="btn add"type="submit" value="追加">
+      <input class="btn add"type="submit" value="検索">
       </form>
       <table>
         <tr>
           <th class="th1">作成日</th>
           <th class="th3">タスク名</th>
-          <th class="th4">タグ</th>
+          <th class="th2">タグ</th>
           <th class="th2">更新</th>
           <th class="th2">削除</th>
         </tr>
@@ -256,7 +263,7 @@ td {
           <td><input type="text" name="content" value="{{$todo->content}}" class="content__log">
           </td>
           <td>
-            <select class="btn tagSelect tag_table" name="tag_id">
+            <select class="btn tagSelect" name="tag_id">
               @foreach ($tags as $tag)
               <option value ="{{$tag->id}}" @if($todo->tag_id == $tag->id)selected @endif>{{$tag->name}}</option>
               @endforeach
@@ -269,9 +276,11 @@ td {
           <td><input class="btn delete" type="submit" value="削除"></td>
         </form>
         </tr>
-        
         @endforeach
       </table>
+      <a href="http://127.0.0.1:8000/home">
+        <input class="btn return" type="submit" value="戻る">
+      </a>
     </div>
   </div>
 </div>
