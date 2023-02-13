@@ -67,11 +67,14 @@ class TodoController extends Controller
       $tag_id = $request->input('tag_id');
       $query = Todo::query();
       if(!empty($keyword)){
-        $query->where('content','LIKE',"%{$keyword}%");
-      } else{
-        echo 'タスクがありません';
-      }
+        $query->where('content','LIKE',"%{$keyword}%")->orwhere('tag_id',$tag_id);}
       $todos = $query->get();
-      return view('search',$user,$todos, $tags);
+      $param =
+      [
+        'todos' => $todos,
+        'user' =>$user,
+        'tags' => $tags
+      ];
+      return view('search',$param);
     }
 }
