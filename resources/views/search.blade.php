@@ -203,6 +203,8 @@ td {
 }
 
 .return {
+  display:block;
+  margin-top:20px;
   border: 2px solid #6d7170;
   color: #6d7170;
   background-color: #fff;
@@ -255,6 +257,9 @@ td {
           <th class="th2">更新</th>
           <th class="th2">削除</th>
         </tr>
+          @if(!isset($todos))
+          <p>{{$txt}}</p>
+          @endif
         @foreach ($todos as $todo)
         <tr>
         <td>{{$todo->created_at}}</td>

@@ -66,10 +66,13 @@ class TodoController extends Controller
       $keyword = $request->input('keyword');
       $tag_id = $request->input('tag_id');
       $query = Todo::query();
+      $txt ='検索結果がありません';
       if(!empty($keyword)){
         $query->where('content','LIKE',"%{$keyword}%");
       }elseif(empty($keyword)){
         $query->where('tag_id',$tag_id);
+      }else{
+        echo $txt;
       };
       $todos = $query->get();
       $param =
@@ -77,6 +80,7 @@ class TodoController extends Controller
         'todos' => $todos,
         'user' =>$user,
         'tags' => $tags,
+        'txt' => $txt
       ];
       return view('search',$param);
     }
