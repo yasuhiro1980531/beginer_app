@@ -72,7 +72,7 @@ class TodoController extends Controller
       }elseif(empty($keyword)){
         $query->where('tag_id',$tag_id);
       }else{
-        echo $txt;
+        return $txt;
       };
       $todos = $query->get();
       $param =
