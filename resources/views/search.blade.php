@@ -240,6 +240,7 @@ td {
         @csrf      
       <input class="enter" type="search" name="keyword">
       <select class="btn tagSelect" name="tag_id">
+        <option value="" selected></option>
         @foreach($tags as $tag)
         <option value ="{{ $tag->id }}" 
         @foreach($todos as $todo)
