@@ -51,11 +51,13 @@ class TodoController extends Controller
       $user = Auth::user();
       $todos = [];
       $tags = Tag::all();
+      $txt ='';
       $param =
       [
         'todos' => $todos,
         'user' =>$user,
-        'tags' => $tags
+        'tags' => $tags,
+        'txt' => $txt
       ];
       return view('search',$param);
     }
@@ -66,7 +68,6 @@ class TodoController extends Controller
       $keyword = $request->input('keyword');
       $tag_id = $request->input('tag_id');
       $query = Todo::query();
-      $txt ='検索結果がありません';
       if(!empty($keyword)&&!empty($tag_id)){
         $query->where('content','LIKE',"%{$keyword}%")->where('tag_id',$tag_id);
       }elseif(!empty($tag_id)){
@@ -74,18 +75,27 @@ class TodoController extends Controller
       }elseif(!empty($keyword)){
         $query->where('content','LIKE',"%{$keyword}%");
       }
-      
-      else{
-        //return $txt;
-      };
+
       $todos = $query->get();
-      $param =
+
+      if($todos->isEmpty()){
+        $param =
+      [
+        'todos' => $todos,
+        'user' => $user,
+        'tags' => $tags,
+        'txt' => '検索結果がありません。'
+      ];
+      return view('search', $param);
+    }else{
+        $param =
       [
         'todos' => $todos,
         'user' =>$user,
         'tags' => $tags,
-        'txt' => $txt
+        'txt' => ''
       ];
       return view('search',$param);
-    }
+    };
+  }
 }

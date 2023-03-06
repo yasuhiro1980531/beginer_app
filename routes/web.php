@@ -17,16 +17,14 @@ Route::get('/', function () {
     return view('auth.register');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [TodoController::class,'index'])->name('home');
+    Route::post('/todos/create',[TodoController::class,'store'])->name('todo.store');
+    Route::post('/todos/delete',[TodoController::class,'destroy'])->name('todo.destroy');
+    Route::post('/todos/update',[TodoController::class,'update'])->name('todo.update');
+    Route::get('/todo/find', [TodoController::class,'find'])->name('todo.find');
+    Route::get('/todo/search', [TodoController::class,'search'])->name('todo.search');
+});
 
 require __DIR__.'/auth.php';
-
-Route::get('/home', [TodoController::class,'index']);
-Route::post('/todos/create',[TodoController::class,'store'])->name('todo.store');
-Route::post('/todos/delete',[TodoController::class,'destroy'])->name('todo.destroy');
-Route::post('/todos/update',[TodoController::class,'update'])->name('todo.update');
-Route::get('/todo/find', [TodoController::class,'find']);
-Route::get('/todo/search', [TodoController::class,'search'])->name('todo.search');
 
