@@ -30,10 +30,7 @@
       <select class="btn tagSelect" name="tag_id">
         <option value="" selected></option>
         @foreach($tags as $tag)
-        <option value ="{{ $tag->id }}" 
-        @foreach($todos as $todo)
-        @if($todo->tag_id == $tag->id) selected @endif
-        @endforeach>{{$tag->name}}</option>
+        <option value ="{{ $tag->id }}">{{$tag->name}}</option>
         @endforeach
       </select>
       <input class="btn add"type="submit" value="追加">
